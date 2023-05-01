@@ -4,17 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import devandroid.wittmann.applistacurso.R;
 import devandroid.wittmann.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
-
     Pessoa pessoa;
     Pessoa outraPessoa;
+    EditText editPrimeiroNome;
+    EditText editSobrenome;
+    EditText editNomeCurso;
+    EditText editTelefone;
 
-    String dadosPessoa;
-    String dadosOutraPessoa;
+    Button btnLimpar;
+    Button btnSalvar;
+    Button btnFinaizar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
         // Objeto
         pessoa = new Pessoa();
         // Atribuir dados ao Objeto
-        pessoa.setPrimeiroNome("Roberto");
-        pessoa.setSobreNome("Wittmann");
-        pessoa.setCursoDesejado("Android");
-        pessoa.setTelefoneContato("19 9 9999 9999");
 
         outraPessoa = new Pessoa();
         outraPessoa.setPrimeiroNome("Carmela");
@@ -35,26 +39,55 @@ public class MainActivity extends AppCompatActivity {
         outraPessoa.setCursoDesejado("Java");
         outraPessoa.setTelefoneContato("19 9 8888 9999");
 
-        dadosPessoa = "Primeiro nome: ";
-        dadosPessoa += pessoa.getPrimeiroNome();
-        dadosPessoa += " Sobrenome: ";
-        dadosPessoa += pessoa.getSobreNome();
-        dadosPessoa += " Curso desejado: ";
-        dadosPessoa += pessoa.getCursoDesejado();
-        dadosPessoa += " Telefone de contato: ";
-        dadosPessoa += pessoa.getTelefoneContato();
+        editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
+        editSobrenome = findViewById(R.id.editSobrenome);
+        editNomeCurso = findViewById(R.id.editNomeCurso);
+        editTelefone = findViewById(R.id.editTelefone);
 
-        dadosOutraPessoa = "Primeiro nome: ";
-        dadosOutraPessoa += outraPessoa.getPrimeiroNome();
-        dadosOutraPessoa += " Sobrenome: ";
-        dadosOutraPessoa += outraPessoa.getSobreNome();
-        dadosOutraPessoa += " Curso desejado: ";
-        dadosOutraPessoa += outraPessoa.getCursoDesejado();
-        dadosOutraPessoa += " Telefone de contato: ";
-        dadosOutraPessoa += outraPessoa.getTelefoneContato();
+        btnLimpar = findViewById(R.id.btnLimpar);
+        btnSalvar = findViewById(R.id.btnSalvar);
+        btnFinaizar = findViewById(R.id.btnFinalizar);
 
-        Log.i("POOAndroid","Objeto pessoa: "+pessoa.toString());
-        Log.i("POOAndroid","Objeto outraPessoa: "+outraPessoa.toString());
+        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+        editSobrenome.setText(pessoa.getSobreNome());
+        editNomeCurso.setText(pessoa.getCursoDesejado());
+        editTelefone.setText(pessoa.getTelefoneContato());
+
+        btnLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editPrimeiroNome.setText("");
+                editSobrenome.setText("");
+                editNomeCurso.setText("");
+                editTelefone.setText("");
+            }
+        });
+
+        btnFinaizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Volte sempre!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
+                pessoa.setSobreNome(editSobrenome.getText().toString());
+                pessoa.setCursoDesejado(editNomeCurso.getText().toString());
+                pessoa.setTelefoneContato(editTelefone.getText().toString());
+
+                Toast.makeText(MainActivity.this, "Salvo " + pessoa.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+        Log.i("POOAndroid", "Objeto pessoa: " + pessoa.toString());
+        Log.i("POOAndroid", "Objeto outraPessoa: " + outraPessoa.toString());
 
     }
 }
